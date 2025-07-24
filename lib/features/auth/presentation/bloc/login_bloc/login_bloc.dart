@@ -20,30 +20,33 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginSubmitted>(_onSubmitted);
   }
 
-  FutureOr<void> _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) {
+  FutureOr<void> _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) async {
     final email = Email.dirty(event.email);
     emit(state.copyWith(
       email: email,
+      status: FormzSubmissionStatus.initial,
     ));
   }
 
-  FutureOr<void> _onPasswordChanged(LoginPasswordChanged event, Emitter<LoginState> emit) {
+  Future<void> _onPasswordChanged(LoginPasswordChanged event, Emitter<LoginState> emit) async {
     final password = Password.dirty(event.password);
     emit(state.copyWith(
       password: password,
+      status: FormzSubmissionStatus.initial,
     ));
   }
 
-  FutureOr<void> _onSubmitted(LoginSubmitted event, Emitter<LoginState> emit) {
+  Future<void> _onSubmitted(LoginSubmitted event, Emitter<LoginState> emit) async {
+    emit(state.copyWith(
+      status: FormzSubmissionStatus.inProgress,
+    ));
     if (!state.isValid) {
       emit(state.copyWith(
         status: FormzSubmissionStatus.failure,
       ));
     } else {
-      emit(state.copyWith(
-        status: FormzSubmissionStatus.inProgress,
-      ));
       try {
+        await Future.delayed(const Duration(seconds: 3));
         authBloc.add(LoginRequested(email: state.email.value, password: state.password.value));
         emit(state.copyWith(
           status: FormzSubmissionStatus.success,

@@ -7,7 +7,7 @@ part 'auth_state.dart';
 part 'auth_event.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  AuthBloc(super.initialState) {
+  AuthBloc() : super(const AuthState()) {
     on<LoginRequested>(_onLogin);
     on<LogoutRequested>(_onLogout);
     on<AuthStatusRequested>(_onCheckAuthStatus);
