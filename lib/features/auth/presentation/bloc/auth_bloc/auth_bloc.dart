@@ -19,8 +19,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       emit(state.copyWith(status: AuthStatus.unknown));
 
-      await Future.delayed(const Duration(seconds: 3));
-      if (event.email == 'test@example.com' && event.password == '123456') {
+      // await Future.delayed(const Duration(seconds: 3));
+      if (event.email == 'test@example.com' && event.password == '12345678') {
         emit(state.copyWith(
           status: AuthStatus.authenticated,
           token: 'dummy token',
