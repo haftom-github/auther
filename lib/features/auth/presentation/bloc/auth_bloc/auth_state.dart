@@ -6,8 +6,12 @@ class AuthState extends Equatable {
   final AuthStatus status;
   final String? token;
   final String? error;
+  final AuthProvider provider;
+  final bool isOAuthInProgress;
 
   const AuthState({
+    this.provider = AuthProvider.username,
+    this.isOAuthInProgress = false,
     this.status = AuthStatus.unknown,
     this.token,
     this.error,
@@ -15,10 +19,14 @@ class AuthState extends Equatable {
 
   AuthState copyWith({
     AuthStatus? status,
+    AuthProvider? provider,
+    bool? isOAuthInProgress,
     String? token,
     String? error,
   }) {
     return AuthState(
+      provider: provider ?? this.provider,
+      isOAuthInProgress: isOAuthInProgress ?? this.isOAuthInProgress,
       status: status ?? this.status,
       token: token ?? this.token,
       error: error ?? this.error,
@@ -27,6 +35,6 @@ class AuthState extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object?> get props => [status, token, error];
+  List<Object?> get props => [status, token, error, provider, isOAuthInProgress];
 
 }

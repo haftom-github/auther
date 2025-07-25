@@ -17,7 +17,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({required this.authBloc}) : super(const LoginState()) {
     on<LoginEmailChanged>(_onEmailChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
-    on<LoginSubmitted>(_onSubmitted);
+    on<LoginHit>(_onSubmitted);
   }
 
   FutureOr<void> _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) async {
@@ -36,7 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     ));
   }
 
-  Future<void> _onSubmitted(LoginSubmitted event, Emitter<LoginState> emit) async {
+  Future<void> _onSubmitted(LoginHit event, Emitter<LoginState> emit) async {
     emit(state.copyWith(
       status: FormzSubmissionStatus.inProgress,
     ));
@@ -47,7 +47,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     } else {
       try {
         await Future.delayed(const Duration(seconds: 3));
-        authBloc.add(LoginRequested(email: state.email.value, password: state.password.value));
+        switch (event.provider) {
+          case AuthProvider.google:
+            // authBloc.add(GoogleLoginRequested());
+            break;
+          case AuthProvider.facebook:
+            // TODO: Implement Facebook OAuth logic
+            break;
+          case AuthProvider.twitter:
+            // TODO: Implement Twitter OAuth logic
+            break;
+          case AuthProvider.username:
+            authBloc.add(
+                UsernameLoginRequested(username: state.email.value, password: state.password.value)
+            );
+        }
         emit(state.copyWith(
           status: FormzSubmissionStatus.success,
         ));

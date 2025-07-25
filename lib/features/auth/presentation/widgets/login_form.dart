@@ -1,4 +1,5 @@
 import 'package:auther/features/auth/domain/value_objects/email.dart';
+import 'package:auther/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:auther/features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,10 +43,10 @@ class _LoginFormState extends State<LoginForm> {
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 8),
-                  const Text(
+                  Text(
                     'Please sign in to continue',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.grey),
+                    style: TextStyle(color: Theme.of(ctx).colorScheme.onSurface),
                   ),
                   const SizedBox(height: 32),
                   TextFormField(
@@ -97,7 +98,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     onPressed: state.status.isInProgress
                         ? null
-                        : () => ctx.read<LoginBloc>().add(LoginSubmitted()),
+                        : () => ctx.read<LoginBloc>().add(LoginHit(AuthProvider.username)),
                     child: state.status.isInProgress
                         ? SizedBox(
                       height: 20,

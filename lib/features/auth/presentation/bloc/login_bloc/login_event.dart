@@ -25,9 +25,7 @@ class LoginPasswordChanged extends LoginEvent {
   List<Object> get props => [password];
 }
 
-class LoginRequested extends LoginEvent {
-  final LoginScheme scheme;
-  const LoginSubmitted(this.scheme);
+class LoginHit extends LoginEvent {
+  final AuthProvider provider;
+  const LoginHit(this.provider);
 }
-
-enum LoginScheme { google, facebook, twitter, password }
