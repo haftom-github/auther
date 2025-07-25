@@ -10,28 +10,28 @@ abstract class AuthEvent extends Equatable {
 
 enum AuthProvider { google, facebook, twitter, username }
 
-abstract class LoginRequested extends AuthEvent {
+abstract class SignInRequested extends AuthEvent {
   final AuthProvider scheme;
-  const LoginRequested(this.scheme);
+  const SignInRequested(this.scheme);
 
   @override
   List<Object?> get props => [scheme];
 }
 
-class UsernameLoginRequested extends LoginRequested {
+class UsernameSignInRequested extends SignInRequested {
   final String username;
   final String password;
 
-  const UsernameLoginRequested({required this.username, required this.password}) : super(AuthProvider.username);
+  const UsernameSignInRequested({required this.username, required this.password}) : super(AuthProvider.username);
 
   @override
   List<Object?> get props => [username, password];
 }
 
-class GoogleLoginRequested extends LoginRequested {
+class GoogleSignInRequested extends SignInRequested {
   final String authorizationCode;
   final String? callbackUrl;
-  const GoogleLoginRequested({
+  const GoogleSignInRequested({
     required this.authorizationCode,
     required this.callbackUrl}) : super(AuthProvider.google);
 }

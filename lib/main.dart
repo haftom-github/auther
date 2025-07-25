@@ -1,3 +1,5 @@
+import 'package:auther/core/di/injection.dart';
+import 'package:auther/features/auth/domain/usecases/signin_with_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,7 +7,9 @@ import 'features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/login_bloc/login_bloc.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDI();
   runApp(const MyApp());
 }
 
@@ -16,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (ctx) => AuthBloc()),
+        BlocProvider(create: (ctx) => getIt.get<AuthBloc>()),
         BlocProvider(create: (ctx) => LoginBloc(authBloc: ctx.read<AuthBloc>())),
       ],
       child: MaterialApp(

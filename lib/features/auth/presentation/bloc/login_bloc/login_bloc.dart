@@ -59,7 +59,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             break;
           case AuthProvider.username:
             authBloc.add(
-                UsernameLoginRequested(username: state.email.value, password: state.password.value)
+                UsernameSignInRequested(username: state.email.value, password: state.password.value)
             );
         }
         emit(state.copyWith(
