@@ -1,4 +1,5 @@
 import 'package:auther/core/di/injection.dart';
+import 'package:auther/features/auth/domain/usecases/signout.dart';
 
 import '../../features/auth/data/data_sources/auth_local_data_source.dart';
 import '../../features/auth/data/data_sources/auth_remote_data_source.dart';
@@ -12,4 +13,5 @@ Future<void> setupDomainDi() async {
     => AuthRepositoryImpl(getIt.get<AuthRemoteDataSource>(), getIt.get<AuthLocalDataSource>()));
   getIt.registerLazySingleton<SignInWithGoogle>(() => SignInWithGoogle(getIt.get<AuthRepository>()));
   getIt.registerLazySingleton<SignInWithUsername>(() => SignInWithUsername(getIt.get<AuthRepository>()));
+  getIt.registerLazySingleton<SignOut>(() => SignOut(getIt.get<AuthRepository>()));
 }
