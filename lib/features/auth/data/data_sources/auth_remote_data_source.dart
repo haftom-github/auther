@@ -1,7 +1,7 @@
-import '../models/user_model.dart';
+import 'package:auther/features/auth/data/models/token_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<UserModel?> signInWithGoogle();
-  Future<UserModel?> signInWithUsernameAndPassword(String username, String password);
+  Future<TokenModel?> signInWithGoogle();
+  Future<TokenModel?> signInWithUsernameAndPassword(String username, String password);
   Future<void> signOut();
 }

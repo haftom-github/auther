@@ -1,16 +1,17 @@
+import 'package:auther/features/auth/data/models/token_model.dart';
 import 'package:auther/features/auth/data/models/user_model.dart';
 
 import '../data_sources/auth_remote_data_source.dart';
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource{
   @override
-  Future<UserModel?> signInWithGoogle() {
+  Future<TokenModel?> signInWithGoogle() {
     // TODO: implement signInWithGoogle
     throw UnimplementedError();
   }
 
   @override
-  Future<UserModel?> signInWithUsernameAndPassword(String username, String password) {
+  Future<TokenModel?> signInWithUsernameAndPassword(String username, String password) {
     // TODO: implement signInWithUsernameAndPassword
     throw UnimplementedError();
   }
